@@ -16,7 +16,7 @@ function deleteSponsoredContent() {
   for (var i  = 0; i < links.length; ++i) {
     if (links[i].getAttribute("class") == sponsClass)
     {
-        getTopParent(links[i]).remove();
+        getTopParent(getTopParent(links[i])).remove();
     }
   }
 };
