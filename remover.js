@@ -2,8 +2,7 @@ function deleteSuggestedContent() {
   var spans = document.querySelectorAll("span");
   var sponsName = "Suggested Post";
   for (var i  = 0; i < spans.length; ++i) {
-    var text = spans[i].textContent;
-    if (text == sponsName)
+    if (spans[i].textContent == sponsName)
     {
         getTopParent(spans[i]).remove();
     }
