@@ -5,7 +5,7 @@ function deleteSuggestedContent() {
   for (var i  = 0; i < spans.length; ++i) {
     if (spans[i].textContent == sponsName) //Find instances of the heading Suggested Post
     {
-        getTopUserParent(spans[i]).remove(); //Find and remove the parent
+        getSpecificParent(spans[i],"class", "userContentWrapper").remove(); //Find and remove the parent
     }
   }
 };
@@ -17,7 +17,7 @@ function deleteSponsoredContent() {
   for (var i  = 0; i < links.length; ++i) {
     if (links[i].getAttribute("class") == sponsClass) //Find instances of the class StreamSponsoredLink
     {
-        getTopUserParent(getTopUserParent(links[i])).remove(); //Find and remove the parent
+        getSpecificParent(getSpecificParent(links[i],"class", "userContentWrapper"),"class", "userContentWrapper").remove(); //Find and remove the parent
     }
   }
 };
@@ -30,29 +30,30 @@ function deletePeopleAlsoShared() {
   for (var i  = 0; i < divs.length; ++i) {
     if (divs[i].textContent == sponsName && divs[i].getAttribute("class") == sponsClass) //Find instances of the class StreamSponsoredLink
     {
-       getTopJsonParent(divs[i]).remove(); //Find and remove the parent
+       getSpecificParent(divs[i], "data-ownerid", "u_jsonp").remove(); //Find and remove the parent
     }
   }
 };
 
-function getTopUserParent(content) {
-    //find the container that has class userContentWrapper
-    var facebookClass = "userContentWrapper"; 
-    while(!content.hasAttribute("class") || content.getAttribute("class").indexOf(facebookClass)==-1)
+function deleteRightColumn() {
+  //removes sponsored content
+  var divs = document.querySelectorAll("div");
+  var sponsClass = "home_right_column";
+  for (var i  = 0; i < divs.length; ++i) {
+    if (divs[i].getAttribute("class") == sponsClass) //Find instances of the class StreamSponsoredLink
     {
-        content = content.parentElement;
+       getSpecificParent(divs[i],"class", "cardRightCol").remove(); //Find and remove the parent
     }
-    return content.parentElement;
+  }
 };
 
-function getTopJsonParent(content) {
-    //find the container that has data-ownerid u_jsonp
-    var facebookClass = "u_jsonp"; 
-    while(!content.hasAttribute("data-ownerid") || content.getAttribute("data-ownerid").indexOf(facebookClass)==-1)
+function getSpecificParent(content, attr, name) {
+    //find the container that has a specific attribute
+    while(!content.hasAttribute(attr) || content.getAttribute(attr).indexOf(name)==-1)
     {
         content = content.parentElement;
     }
-    return content.parentElement;
+    return content.parentElement; // 
 };
 
 $(window).bind("DOMSubtreeModified", function() {
@@ -60,6 +61,7 @@ $(window).bind("DOMSubtreeModified", function() {
     deleteSuggestedContent();
     deleteSponsoredContent();
     deletePeopleAlsoShared();
+    deleteRightColumn();
 });
 
 debugger; // allows you to access the javascript with console open
