@@ -17,7 +17,7 @@ function deleteSponsoredContent() {
   for (var i  = 0; i < links.length; ++i) {
     if (links[i].getAttribute("class") == sponsClass) //Find instances of the class StreamSponsoredLink
     {
-        getTopUserParent(getTopParent(links[i])).remove(); //Find and remove the parent
+        getTopUserParent(getTopUserParent(links[i])).remove(); //Find and remove the parent
     }
   }
 };
