@@ -5,7 +5,7 @@ function deleteSuggestedContent() {
   for (var i  = 0; i < spans.length; ++i) {
     if (spans[i].textContent == sponsName) //Find instances of the heading Suggested Post
     {
-        getSpecificParent(spans[i],"class", "userContentWrapper").remove(); //Find and remove the parent
+        getSpecificParent(spans[i],"class", "userContentWrapper").parentElement.remove(); //Find and remove the parent
     }
   }
 };
@@ -17,7 +17,7 @@ function deleteSponsoredContent() {
   for (var i  = 0; i < links.length; ++i) {
     if (links[i].getAttribute("class") == sponsClass) //Find instances of the class StreamSponsoredLink
     {
-        getSpecificParent(getSpecificParent(links[i],"class", "userContentWrapper"),"class", "userContentWrapper").remove(); //Find and remove the parent
+        getSpecificParent(getSpecificParent(links[i],"class", "userContentWrapper"),"class", "userContentWrapper").parentElement.remove(); //Find and remove the parent
     }
   }
 };
@@ -30,7 +30,7 @@ function deletePeopleAlsoShared() {
   for (var i  = 0; i < divs.length; ++i) {
     if (divs[i].textContent == sponsName && divs[i].getAttribute("class") == sponsClass) //Find instances of the class StreamSponsoredLink
     {
-       getSpecificParent(divs[i], "data-ownerid", "u_jsonp").remove(); //Find and remove the parent
+       getSpecificParent(divs[i], "data-ownerid", "").remove(); //Find and remove the parent
     }
   }
 };
@@ -42,7 +42,7 @@ function deleteRightColumn() {
   for (var i  = 0; i < divs.length; ++i) {
     if (divs[i].getAttribute("class") == sponsClass) //Find instances of the class StreamSponsoredLink
     {
-       getSpecificParent(divs[i],"class", "cardRightCol").remove(); //Find and remove the parent
+       getSpecificParent(divs[i],"class", "cardRightCol").parentElement.remove(); //Find and remove the parent
     }
   }
 };
@@ -53,7 +53,7 @@ function getSpecificParent(content, attr, name) {
     {
         content = content.parentElement;
     }
-    return content.parentElement; // 
+    return content; // 
 };
 
 $(window).bind("DOMSubtreeModified", function() {
